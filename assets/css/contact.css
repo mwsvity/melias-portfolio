@@ -1,0 +1,1853 @@
+/* ==========================================================================
+   Melia Winisa | Rotary Telephone — Contact Me & Direct Email Dispatch
+   ========================================================================== */
+
+body.contact-page-body,
+body.view-contact,
+.desk-subview.view-contact {
+    /* Warm detective desk & dusty-rose room lighting matching investigate-background.png */
+    background:
+        radial-gradient(circle at 22% 24%, rgba(255, 228, 205, 0.22) 0%, transparent 48%),
+        radial-gradient(circle at 78% 18%, rgba(245, 169, 184, 0.16) 0%, transparent 45%),
+        linear-gradient(165deg, #3a2117 0%, #28150e 55%, #1b0d08 100%);
+    color: var(--brown-deep);
+    overflow-x: hidden;
+    overflow-y: auto;
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+   Top Detective Switchboard Control Bar (.contact-topbar)
+   ========================================================================== */
+.contact-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 95;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 12px;
+    min-height: 54px;
+    padding: 10px var(--subpage-pad-right, 116px) 10px var(--subpage-pad-x, 28px);
+    box-sizing: border-box;
+    background: rgba(32, 17, 10, 0.94);
+    border-bottom: 2px solid rgba(226, 182, 146, 0.34);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 22px rgba(12, 5, 2, 0.45);
+}
+
+.contact-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.contact-line-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 10px;
+    background: rgba(255, 246, 236, 0.1);
+    border: 1px solid rgba(238, 196, 158, 0.35);
+    border-radius: 6px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    color: #f9e6d2;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+}
+
+.line-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #4cd964;
+    box-shadow: 0 0 8px #4cd964;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.line-status-dot.is-off-hook {
+    background: #ff9f1c;
+    box-shadow: 0 0 10px #ff9f1c;
+    animation: linePulse 1.1s ease-in-out infinite alternate;
+}
+
+.line-status-dot.is-dialing {
+    background: #ff4d46;
+    box-shadow: 0 0 10px #ff4d46;
+}
+
+@keyframes linePulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.28); opacity: 0.72; }
+}
+
+/* Speed Dial Pills in Topbar */
+.contact-speed-dial {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.speed-dial-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    background: rgba(255, 245, 238, 0.11);
+    border: 1px solid rgba(235, 198, 165, 0.32);
+    border-radius: 999px;
+    color: #f3dcc8;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    transition: all 0.18s ease;
+}
+
+.speed-dial-pill .ext-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: rgba(71, 32, 5, 0.65);
+    border: 1px solid rgba(242, 207, 160, 0.55);
+    color: #fff5e6;
+    font-weight: 700;
+    font-size: 10px;
+}
+
+.speed-dial-pill:hover {
+    background: rgba(255, 245, 238, 0.24);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.speed-dial-pill.is-active {
+    background: #fccacd;
+    color: var(--brown-deep);
+    border-color: #fccacd;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(252, 202, 205, 0.35);
+}
+
+.speed-dial-pill.is-active .ext-num {
+    background: var(--brown-deep);
+    color: #fff8f0;
+    border-color: var(--brown-deep);
+}
+
+/* Hardware Action Buttons */
+.contact-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.contact-hw-btn {
+    padding: 6px 11px;
+    background: #592911;
+    border: 1px solid #b5825d;
+    border-radius: 6px;
+    color: #fff6ec;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: all 0.16s ease;
+}
+
+.contact-hw-btn:hover {
+    background: #743617;
+    transform: translateY(-1px);
+}
+
+.contact-hw-btn.is-off-hook {
+    background: #b93829;
+    border-color: #f5a9b8;
+    color: #fff9f5;
+}
+
+.contact-hw-btn.primary-hw-btn {
+    background: #f5dfc1;
+    color: var(--brown-deep);
+    border-color: #d4ad7d;
+}
+
+.contact-hw-btn.primary-hw-btn:hover {
+    background: #fcebd4;
+}
+
+/* ==========================================================================
+   Main Switchboard Workspace Grid (.contact-desk-stage)
+   ========================================================================== */
+.contact-desk-stage {
+    width: 100%;
+    max-width: 1600px;
+    height: calc(100vh - var(--contact-topbar-h, 54px));
+    min-height: 580px;
+    margin: 0 auto;
+    padding: clamp(10px, 1.4vh, 16px) var(--subpage-pad-right, 116px) clamp(12px, 1.8vh, 20px) var(--subpage-pad-x, 28px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-workspace-grid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(360px, 485px) minmax(460px, 1fr);
+    gap: clamp(14px, 1.6vw, 22px);
+    align-items: stretch;
+}
+
+/* ==========================================================================
+   LEFT COLUMN: Interactive Vintage Rotary Telephone & Operator Melia
+   ========================================================================== */
+.rotary-stage-column {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.rotary-desk-mat {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    background:
+        radial-gradient(circle at 50% 35%, rgba(255, 240, 224, 0.12) 0%, transparent 65%),
+        linear-gradient(180deg, #4b2a1d 0%, #351c12 100%);
+    border: 2px solid #8c6236;
+    border-radius: 14px;
+    padding: clamp(10px, 1.4vh, 15px) clamp(14px, 1.3vw, 18px);
+    box-shadow:
+        0 20px 48px rgba(10, 4, 1, 0.58),
+        inset 0 1px 0 rgba(255, 235, 212, 0.22);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: clamp(8px, 1.2vh, 13px);
+}
+
+.rotary-mat-header {
+    flex-shrink: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px 8px;
+    padding-bottom: clamp(5px, 0.8vh, 8px);
+    border-bottom: 1px dashed rgba(235, 198, 152, 0.28);
+}
+
+.mat-tag {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9.2px;
+    font-weight: 700;
+    color: #f3cfa4;
+    letter-spacing: 0.25px;
+    white-space: nowrap;
+}
+
+.mat-hint {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9.2px;
+    color: #fccacd;
+    margin-left: auto;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   Vintage Brass Desk Note Plaque (.rotary-brass-plaque)
+   ========================================================================== */
+.rotary-brass-plaque {
+    flex-shrink: 0;
+    position: relative;
+    background: linear-gradient(145deg, #e4be78 0%, #caa05b 35%, #b18541 70%, #946927 100%);
+    border: 2px solid #5a3810;
+    border-radius: 7px;
+    padding: clamp(7px, 1.1vh, 10px) 14px clamp(6px, 1vh, 9px) 14px;
+    box-shadow:
+        0 4px 14px rgba(10, 4, 1, 0.45),
+        inset 0 1px 0 rgba(255, 245, 220, 0.55),
+        inset 0 -1px 2px rgba(50, 26, 6, 0.4);
+    color: #2b1404;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.rotary-brass-plaque:hover {
+    box-shadow:
+        0 6px 18px rgba(10, 4, 1, 0.55),
+        inset 0 1px 0 rgba(255, 245, 220, 0.65),
+        inset 0 -1px 2px rgba(50, 26, 6, 0.4);
+}
+
+/* Brass Rivets in 4 corners */
+.plaque-corner {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff1d0 0%, #7d5218 65%, #3d2204 100%);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+}
+.plaque-corner-tl { top: 4px; left: 5px; }
+.plaque-corner-tr { top: 4px; right: 5px; }
+.plaque-corner-bl { bottom: 4px; left: 5px; }
+.plaque-corner-br { bottom: 4px; right: 5px; }
+
+.plaque-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgba(75, 41, 10, 0.25);
+    padding-bottom: 4px;
+}
+
+.plaque-title {
+    font-family: var(--font-detective, "Noto Sans Mono", monospace);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    color: #3b1d07;
+    text-shadow: 0 1px 0 rgba(255, 235, 190, 0.4);
+}
+
+.plaque-status-badge {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    background: rgba(59, 29, 7, 0.88);
+    color: #fef4e2;
+    padding: 1.5px 6px;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.plaque-note-text {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #2b1404;
+    margin: 0 0 6px 0;
+}
+
+.plaque-note-text em {
+    font-style: normal;
+    font-weight: 700;
+    color: #4a1e05;
+}
+
+.plaque-ext-guide {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9.8px;
+    background: rgba(255, 248, 230, 0.45);
+    border: 1px dashed rgba(80, 42, 12, 0.35);
+    padding: 3px 7px;
+    border-radius: 4px;
+    color: #3b1d07;
+}
+
+.plaque-ext-guide span strong {
+    color: #7a1c0d;
+}
+
+/* ==========================================================================
+   Physical Bakelite Rotary Telephone Unit (.rotary-phone-unit)
+   ========================================================================== */
+.rotary-phone-unit {
+    --phone-scale: 1;
+    --phone-base-h: 432px;
+    --phone-top-space: 4px;
+    flex: 0 0 auto;
+    position: relative;
+    width: 344px;
+    margin: var(--phone-top-space, 4px) auto calc((var(--phone-scale, 1) - 1) * var(--phone-base-h, 432px)) auto;
+    padding-top: 52px;
+    padding-bottom: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    user-select: none;
+    transform-origin: top center;
+    transform: scale(var(--phone-scale, 1));
+}
+
+/* Ringing vibration animation when Bell is rung */
+.rotary-phone-unit.is-ringing {
+    animation: phoneBellRing 0.11s ease-in-out 6;
+}
+
+@keyframes phoneBellRing {
+    0%, 100% { transform: scale(var(--phone-scale, 1)) rotate(0deg) translateX(0); }
+    25% { transform: scale(var(--phone-scale, 1)) rotate(-1.6deg) translateX(-3px); }
+    75% { transform: scale(var(--phone-scale, 1)) rotate(1.6deg) translateX(3px); }
+}
+
+/* Coiled Handset Cord on Left Side */
+.rotary-coiled-cord {
+    position: absolute;
+    left: -20px;
+    top: 42px;
+    width: 78px;
+    height: 215px;
+    z-index: 2;
+    pointer-events: none;
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.45));
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rotary-phone-unit.is-off-hook .rotary-coiled-cord {
+    transform: translateY(-12px) scaleY(1.06);
+}
+
+/* Removable Vintage Handset Receiver */
+.rotary-handset-assembly {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    width: 344px;
+    height: 68px;
+    z-index: 12;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+    filter: drop-shadow(0 10px 16px rgba(15, 5, 2, 0.58));
+}
+
+.rotary-handset-assembly:hover {
+    transform: translateX(-50%) translateY(-3px) rotate(-0.8deg);
+    filter: drop-shadow(0 14px 20px rgba(15, 5, 2, 0.68)) brightness(1.05);
+}
+
+/* Lifted / Off-Hook Handset State */
+.rotary-phone-unit.is-off-hook .rotary-handset-assembly {
+    transform: translateX(-48%) translateY(-24px) rotate(-8deg);
+    filter: drop-shadow(0 22px 26px rgba(10, 3, 1, 0.72));
+}
+
+.handset-earpiece {
+    width: 78px;
+    height: 64px;
+    border-radius: 38px 38px 28px 28px;
+    background: radial-gradient(circle at 38% 30%, #7d5342 0%, #523022 58%, #341b11 100%);
+    border: 3px solid #261108;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 3px 6px rgba(255, 224, 200, 0.25);
+    z-index: 3;
+}
+
+.handset-earpiece.cap-left {
+    transform: rotate(14deg);
+}
+
+.handset-earpiece.cap-right {
+    transform: rotate(-14deg);
+}
+
+.earpiece-inner-ring {
+    width: 44px;
+    height: 36px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, #3d2116 0%, #241008 100%);
+    border: 2px solid #8a5d48;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.65);
+}
+
+.handset-handle-bar {
+    position: absolute;
+    left: 52px;
+    right: 52px;
+    top: 8px;
+    height: 36px;
+    border-radius: 22px 22px 14px 14px;
+    background: linear-gradient(180deg, #875b49 0%, #593526 52%, #391f14 100%);
+    border: 3px solid #261108;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: inset 0 3px 5px rgba(255, 228, 210, 0.28);
+}
+
+.handset-shine {
+    position: absolute;
+    top: 4px;
+    left: 24px;
+    right: 24px;
+    height: 5px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, rgba(255, 232, 215, 0.36), transparent);
+    pointer-events: none;
+}
+
+.handset-badge-text {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+    color: rgba(255, 236, 214, 0.82);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+}
+
+/* Cradle Forks & Brass Plungers */
+.rotary-cradle-forks {
+    width: 220px;
+    height: 26px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 22px;
+    z-index: 5;
+    margin-bottom: -6px;
+}
+
+.cradle-prong {
+    position: relative;
+    width: 34px;
+    height: 22px;
+    background: linear-gradient(180deg, #5d3828 0%, #3d2116 100%);
+    border: 2.5px solid #261108;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: center;
+}
+
+.brass-plunger {
+    position: absolute;
+    top: -5px;
+    width: 14px;
+    height: 7px;
+    background: linear-gradient(90deg, #c69a52, #fae0a4, #a87b34);
+    border: 1.5px solid #261108;
+    border-radius: 3px 3px 0 0;
+    transition: transform 0.25s ease;
+}
+
+.rotary-phone-unit.is-off-hook .brass-plunger {
+    transform: translateY(-5px);
+}
+
+.cradle-center-well {
+    flex: 1;
+    height: 10px;
+    background: #2e170e;
+    border-top: 2px solid #261108;
+}
+
+/* Sloped Bakelite Telephone Body Shell (matching investigate-background-rotary-phone.png) */
+.rotary-body-shell {
+    position: relative;
+    width: 336px;
+    padding: 18px 20px 16px 20px;
+    box-sizing: border-box;
+    background:
+        radial-gradient(circle at 50% 28%, #774e3d 0%, #543224 56%, #391f15 100%);
+    border: 3px solid #240f06;
+    border-radius: 36px 36px 20px 20px;
+    box-shadow:
+        0 18px 34px rgba(8, 3, 1, 0.65),
+        inset 0 3px 8px rgba(255, 224, 202, 0.24),
+        inset 0 -8px 16px rgba(18, 7, 3, 0.65);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 6;
+}
+
+.body-ridge {
+    position: absolute;
+    top: 20px;
+    bottom: 24px;
+    width: 12px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(255, 225, 205, 0.16) 0%, transparent 85%);
+    pointer-events: none;
+}
+
+.body-ridge.ridge-left {
+    left: 16px;
+    transform: rotate(7deg);
+}
+
+.body-ridge.ridge-right {
+    right: 16px;
+    transform: rotate(-7deg);
+}
+
+/* Mechanical Dialed Number Readout Strip */
+.rotary-readout-strip {
+    width: 88%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 5px 10px;
+    margin-bottom: 12px;
+    background: #231008;
+    border: 2px solid #9e7648;
+    border-radius: 7px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.75);
+}
+
+.readout-left {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+}
+
+.readout-label {
+    font-size: 9.5px;
+    color: #c9a37b;
+    letter-spacing: 0.6px;
+}
+
+.readout-digits {
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffe3a8;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 8px rgba(255, 212, 128, 0.45);
+}
+
+.readout-clear-btn {
+    padding: 2px 7px;
+    background: #4e2715;
+    border: 1px solid #9e7648;
+    border-radius: 4px;
+    color: #f6dfc3;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9px;
+    font-weight: 700;
+    transition: background-color 0.15s ease;
+}
+
+.readout-clear-btn:hover {
+    background: #70391f;
+}
+
+/* ==========================================================================
+   Interactive Rotary Dial Wheel (.rotary-dial-container)
+   ========================================================================== */
+.rotary-dial-container {
+    --wheel-rot: 0deg;
+    position: relative;
+    width: 248px;
+    height: 248px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px 0 12px 0;
+    flex-shrink: 0;
+    touch-action: none;
+}
+
+/* Outer Brass & Dark Espresso Bezel */
+.dial-brass-bezel {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 40deg,
+        #b88946 0deg,
+        #fae0a8 70deg,
+        #8a5d24 150deg,
+        #e5c17c 240deg,
+        #784e1c 310deg,
+        #b88946 360deg
+    );
+    border: 3px solid #240f06;
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.55),
+        inset 0 2px 4px rgba(255, 248, 225, 0.6);
+    pointer-events: none;
+}
+
+/* Stationary Cream / Vintage Ivory Number Plate Underneath */
+.dial-number-plate {
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 45% 40%, #fffaf0 0%, #f5e4ca 68%, #dec29b 100%);
+    border: 2.5px solid #381b0c;
+    box-shadow: inset 0 4px 12px rgba(56, 27, 12, 0.32);
+    pointer-events: none;
+}
+
+.plate-number-mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 34px;
+    height: 34px;
+    margin-left: -17px;
+    margin-top: -17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 800;
+    color: #2f1407;
+    transform: rotate(var(--mark-angle, 0deg)) translateY(-86px) rotate(calc(var(--mark-angle, 0deg) * -1));
+}
+
+/* Rotating Finger Wheel Overlay */
+.dial-finger-wheel {
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 50% 50%,
+        transparent 0%,
+        transparent 38%,
+        rgba(255, 246, 232, 0.34) 40%,
+        rgba(244, 221, 192, 0.58) 86%,
+        rgba(214, 180, 140, 0.78) 100%
+    );
+    border: 2px solid rgba(92, 50, 22, 0.55);
+    transform: rotate(var(--wheel-rot, 0deg));
+    transition: transform 0.55s cubic-bezier(0.24, 0.92, 0.38, 1);
+    will-change: transform;
+    z-index: 4;
+}
+
+.dial-finger-wheel.is-dragging-wheel {
+    transition: none !important;
+}
+
+.dial-finger-wheel.is-dialing-forward {
+    transition: transform 0.34s cubic-bezier(0.42, 0, 0.25, 1) !important;
+}
+
+.dial-finger-wheel.is-returning-wheel {
+    transition: transform var(--return-duration, 0.55s) linear !important;
+}
+
+/* 10 Circular Finger Holes around the Wheel */
+.dial-hole {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 44px;
+    height: 44px;
+    margin-left: -22px;
+    margin-top: -22px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, rgba(255, 252, 244, 0.94) 0%, rgba(247, 229, 202, 0.92) 72%, rgba(220, 190, 152, 0.96) 100%);
+    border: 2.5px solid #472005;
+    box-shadow:
+        inset 0 2px 5px rgba(45, 20, 6, 0.35),
+        0 2px 4px rgba(255, 248, 235, 0.55);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    outline: none;
+    transform: rotate(var(--hole-angle, 0deg)) translateY(-86px) rotate(calc((var(--hole-angle, 0deg) + var(--wheel-rot, 0deg)) * -1));
+    transition: background-color 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.dial-hole:hover {
+    background: radial-gradient(circle at 40% 35%, #fff5f6 0%, #fccacd 100%);
+    border-color: #b93829;
+    box-shadow:
+        inset 0 2px 5px rgba(185, 56, 41, 0.25),
+        0 0 12px rgba(252, 202, 205, 0.85);
+}
+
+.dial-hole:focus-visible {
+    outline: 2px dashed #b93829;
+    outline-offset: 2px;
+}
+
+.dial-hole.is-active-hole {
+    background: radial-gradient(circle at 40% 35%, #fff0d4 0%, #f5c276 100%);
+    border-color: #b93829;
+}
+
+.hole-digit {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--brown-deep);
+}
+
+.hole-sub {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 6.5px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    color: #7a3e18;
+    margin-top: 1px;
+}
+
+/* Stationary Center Brass & Cream Medallion Cap */
+.dial-center-cap {
+    position: relative;
+    z-index: 8;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    padding: 5px;
+    background: conic-gradient(from 90deg, #b5843e, #fae0a8, #7e521b, #eec882, #b5843e);
+    border: 2.5px solid #240f06;
+    box-shadow: 0 4px 12px rgba(20, 8, 2, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.cap-inner-ring {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 45% 35%, #fffcf5 0%, #f2DEC2 100%);
+    border: 1.5px dashed #6b3d18;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4px;
+}
+
+.cap-agency {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 7px;
+    font-weight: 700;
+    color: #7a4b32;
+    letter-spacing: 0.6px;
+}
+
+.cap-ext {
+    font-family: var(--font-heading);
+    font-size: 12.5px;
+    font-weight: 800;
+    color: var(--brown-deep);
+    line-height: 1.15;
+}
+
+.cap-sub {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 6.5px;
+    font-weight: 700;
+    color: var(--stamp-red);
+    letter-spacing: 0.5px;
+}
+
+/* Brass Finger Stop Bracket (Bottom-Right ~128deg) */
+.dial-finger-stop {
+    position: absolute;
+    bottom: 22px;
+    right: 6px;
+    width: 58px;
+    height: 26px;
+    z-index: 9;
+    transform: rotate(34deg);
+    background: linear-gradient(135deg, #fae2ad 0%, #c69648 55%, #875c1d 100%);
+    border: 2px solid #240f06;
+    border-radius: 6px 14px 14px 6px;
+    box-shadow: -2px 4px 8px rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 7px;
+    pointer-events: none;
+}
+
+.stop-rivet {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #472005;
+}
+
+.stop-tip {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid #472005;
+    background: #fff3d1;
+}
+
+/* Bottom Brass Nameplate on Phone Base */
+.rotary-base-plate {
+    width: 84%;
+    padding: 4px 10px;
+    background: linear-gradient(90deg, #a87b34 0%, #f5d896 50%, #9c6f2b 100%);
+    border: 1.5px solid #240f06;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 8.5px;
+    font-weight: 700;
+    color: #2b1204;
+    letter-spacing: 0.7px;
+}
+
+/* Rubber Desk Feet */
+.rotary-rubber-feet {
+    width: 286px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: -2px;
+}
+
+.rotary-rubber-feet span {
+    width: 42px;
+    height: 9px;
+    background: #1a0b05;
+    border: 1.5px solid #472005;
+    border-radius: 0 0 8px 8px;
+}
+
+/* ==========================================================================
+   Operator Melia Live Reaction Card (.operator-melia-card)
+   ========================================================================== */
+.operator-melia-card {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 14px;
+    background: #fffdf9;
+    border: 2px solid var(--brown-badge);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(15, 6, 2, 0.35), 3px 3px 0 rgba(74, 33, 9, 0.85);
+}
+
+.operator-avatar-wrap {
+    position: relative;
+    width: 74px;
+    height: 82px;
+    border-radius: 8px;
+    border: 2px solid var(--brown-badge);
+    background: linear-gradient(160deg, #fde8ec 0%, #f5cbd3 100%);
+    overflow: hidden;
+    transition: transform 0.18s ease;
+}
+
+.operator-avatar-wrap:hover {
+    transform: scale(1.04);
+}
+
+.operator-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.operator-live-pill {
+    position: absolute;
+    bottom: 2px;
+    left: 3px;
+    right: 3px;
+    text-align: center;
+    background: rgba(71, 32, 5, 0.9);
+    color: #fff8f0;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 7.5px;
+    font-weight: 700;
+    padding: 1px 3px;
+    border-radius: 3px;
+}
+
+.operator-dialogue-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.operator-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.operator-name {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--brown-deep);
+}
+
+.operator-ext-tag {
+    padding: 2px 7px;
+    background: #fdf0f2;
+    border: 1px solid #f1bfc7;
+    border-radius: 999px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--stamp-red);
+}
+
+.operator-speech {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11.2px;
+    line-height: 1.45;
+    color: #4a2610;
+    background: #faf3eb;
+    border-left: 3px solid var(--pink-dark);
+    padding: 7px 9px;
+    border-radius: 0 6px 6px 0;
+}
+
+.ext-info-line {
+    font-size: 11px;
+    line-height: 1.4;
+    margin-bottom: 2.5px;
+    color: #4a2610;
+}
+
+.ext-info-line:last-child {
+    margin-bottom: 0;
+}
+
+.ext-info-label {
+    font-weight: 700;
+    color: var(--brown-deep);
+}
+
+.ext-overview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px 6px;
+    font-size: 10.5px;
+    line-height: 1.35;
+    margin-bottom: 5px;
+}
+
+.ext-overview-grid span strong {
+    color: var(--stamp-red);
+}
+
+.ext-overview-hint {
+    font-size: 9.8px;
+    font-style: italic;
+    color: #7b4a2a;
+    border-top: 1px dashed #d5bba2;
+    padding-top: 4px;
+    margin-top: 3px;
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: Directory Sheet & Email Dispatch Slip (.contact-documents-column)
+   ========================================================================== */
+.contact-documents-column {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(8px, 1.2vh, 13px);
+}
+
+.contact-doc-sheet {
+    position: relative;
+    background: #fbf6ec;
+    background-image:
+        radial-gradient(rgba(138, 96, 54, 0.05) 1px, transparent 0),
+        linear-gradient(180deg, rgba(255, 252, 245, 0.97) 0%, rgba(246, 237, 220, 0.99) 100%);
+    background-size: 18px 18px, 100% 100%;
+    border: 2px solid #5c381c;
+    border-radius: 10px;
+    padding: clamp(9px, 1.3vh, 13px) clamp(14px, 1.3vw, 18px);
+    box-shadow:
+        0 14px 36px rgba(14, 6, 2, 0.45),
+        4px 4px 0 rgba(92, 54, 24, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+.dispatch-sheet {
+    flex: 1;
+    min-height: 0;
+}
+
+.doc-sheet-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+    border-bottom: 1.5px solid var(--brown-deep);
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10px;
+    color: #6b4426;
+}
+
+.doc-form-code {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.availability-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 9px;
+    background: #e6f6ec;
+    border: 1px solid #2b7a4b;
+    border-radius: 999px;
+    color: #1c5432;
+    font-weight: 700;
+    font-size: 9.8px;
+}
+
+.avail-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #2b7a4b;
+}
+
+.doc-header-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: clamp(5px, 0.85vh, 8px) 14px;
+    margin-bottom: clamp(6px, 1vh, 10px);
+    background: linear-gradient(90deg, #472005 0%, #683110 100%);
+    border-radius: 6px;
+    color: #fff8ee;
+}
+
+.doc-header-banner.banner-warm {
+    background: linear-gradient(90deg, #5a2414 0%, #7d331d 100%);
+}
+
+.doc-main-title {
+    font-family: var(--font-detective);
+    font-size: clamp(15px, 1.5vw, 18px);
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #fff9f0;
+    margin-bottom: 2px;
+}
+
+.doc-main-sub {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11px;
+    color: #f3d8b6;
+}
+
+.rubber-stamp-inline {
+    padding: 3px 9px;
+    border: 2px solid #fccacd;
+    border-radius: 4px;
+    color: #fccacd;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    transform: rotate(-4deg);
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   Switchboard Directory Channels Grid (.directory-channels-grid)
+   ========================================================================== */
+.directory-channels-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(6px, 1vh, 10px);
+}
+
+.channel-card {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 10px;
+    padding: clamp(7px, 1.05vh, 11px) 12px;
+    background: #fffdf9;
+    border: 1.5px solid #c5a482;
+    border-radius: 8px;
+    transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.channel-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--brown-badge);
+    box-shadow: 0 6px 16px rgba(45, 20, 6, 0.12);
+}
+
+.channel-card.is-highlighted {
+    background: #fff9f2;
+    border: 2px solid var(--stamp-red);
+    box-shadow: 0 6px 18px rgba(185, 56, 41, 0.16), 3px 3px 0 rgba(71, 32, 5, 0.82);
+}
+
+.channel-card-wide {
+    grid-column: 1 / -1;
+    align-items: center;
+}
+
+/* Extension Dial Badge inside Card */
+.channel-dial-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 4px;
+    background: #f5e7d4;
+    border: 1.5px solid #9e7348;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.channel-dial-badge:hover {
+    background: #fccacd;
+    border-color: var(--brown-deep);
+    transform: scale(1.05);
+}
+
+.dial-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fffdf9;
+    border: 2px solid var(--brown-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--brown-deep);
+}
+
+.dial-ext-label {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 8.5px;
+    font-weight: 700;
+    color: #5c3416;
+}
+
+.channel-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.channel-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.channel-label {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9.8px;
+    font-weight: 700;
+    color: #7a4624;
+    letter-spacing: 0.4px;
+}
+
+.channel-tag {
+    padding: 1px 6px;
+    background: #fdf0f2;
+    border: 1px solid #f1bfc7;
+    border-radius: 4px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--brown-badge);
+    white-space: nowrap;
+}
+
+.channel-value-link {
+    font-family: var(--font-heading);
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--brown-deep);
+    text-decoration: underline;
+    text-decoration-color: rgba(185, 56, 41, 0.45);
+    text-underline-offset: 3px;
+    word-break: break-all;
+}
+
+.channel-value-link:hover {
+    color: var(--stamp-red);
+}
+
+.channel-note {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    line-height: 1.38;
+    color: #5a361e;
+}
+
+.channel-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    padding-top: 6px;
+    margin-top: 2px;
+    border-top: 1px dashed rgba(110, 72, 41, 0.22);
+}
+
+.ch-btn {
+    padding: 4px 10px;
+    background: #f6ebdc;
+    border: 1px solid #9e7348;
+    border-radius: 5px;
+    color: var(--brown-deep);
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.ch-btn:hover {
+    background: #fccacd;
+    border-color: var(--brown-deep);
+}
+
+.ch-btn.ch-btn-primary {
+    background: var(--brown-badge);
+    border-color: var(--brown-badge);
+    color: #fff8f0;
+}
+
+.ch-btn.ch-btn-primary:hover {
+    background: #6b3110;
+}
+
+.hq-details-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 20px;
+    margin-top: 3px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11px;
+    color: var(--brown-deep);
+}
+
+/* ==========================================================================
+   Rotary Telegram / Direct Email Dispatch Form (.dispatch-sheet)
+   ========================================================================== */
+.dispatch-paperclip {
+    position: absolute;
+    top: -11px;
+    right: 230px;
+    width: 14px;
+    height: 30px;
+    border: 2.5px solid #8a9098;
+    border-radius: 8px;
+    z-index: 5;
+    pointer-events: none;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+.dispatch-rubber-stamp {
+    padding: 4px 10px;
+    border: 2px solid #ffd2d6;
+    border-radius: 4px;
+    color: #ffd2d6;
+    background: rgba(185, 56, 41, 0.32);
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    transform: rotate(-4deg);
+    white-space: nowrap;
+    pointer-events: none;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.dispatch-rubber-stamp.is-stamped-sent {
+    color: #d6ffe4;
+    border-color: #7bf1a8;
+    background: rgba(31, 110, 60, 0.65);
+    transform: rotate(-2deg) scale(1.06);
+}
+
+.doc-recipient-tag {
+    color: var(--stamp-red);
+}
+
+.rotary-email-form {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(5px, 0.9vh, 11px);
+}
+
+.rotary-email-form .form-group:has(.typewriter-textarea) {
+    flex: 1;
+    min-height: 62px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-field-label {
+    display: block;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #5c3416;
+    letter-spacing: 0.4px;
+    margin-bottom: clamp(3px, 0.5vh, 5px);
+}
+
+.req-star {
+    color: var(--stamp-red);
+}
+
+/* Quick Topic Pills */
+.topic-pills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.topic-pill {
+    padding: 5px 11px;
+    background: #fffdf9;
+    border: 1.5px solid #bfa07e;
+    border-radius: 999px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.8px;
+    color: var(--brown-deep);
+    transition: all 0.15s ease;
+}
+
+.topic-pill:hover {
+    border-color: var(--brown-badge);
+    background: #fdf0f2;
+}
+
+.topic-pill.is-selected {
+    background: var(--brown-badge);
+    border-color: var(--brown-badge);
+    color: #fff8f0;
+    font-weight: 700;
+}
+
+/* Form Rows */
+.form-two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.form-subject-priority-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: end;
+}
+
+.typewriter-input,
+.typewriter-textarea {
+    width: 100%;
+    padding: clamp(6px, 0.9vh, 9px) 12px;
+    background: #fffdf9;
+    border: 1.5px solid #8c6236;
+    border-radius: 6px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 12px;
+    color: var(--brown-deep);
+    outline: none;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease;
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+.typewriter-input:focus,
+.typewriter-textarea:focus {
+    border-color: var(--stamp-red);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(185, 56, 41, 0.14);
+}
+
+.typewriter-textarea {
+    flex: 1;
+    resize: vertical;
+    height: 44px;
+    min-height: 44px;
+    line-height: 1.45;
+    background-image: repeating-linear-gradient(
+        180deg,
+        transparent 0px,
+        transparent 23px,
+        rgba(140, 98, 54, 0.12) 24px
+    );
+}
+
+.priority-toggle-group {
+    display: flex;
+    gap: 4px;
+}
+
+.priority-btn {
+    padding: 8px 10px;
+    background: #f5e8d6;
+    border: 1.5px solid #a67d54;
+    border-radius: 6px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--brown-deep);
+    transition: all 0.15s ease;
+}
+
+.priority-btn.is-active {
+    background: #b93829;
+    border-color: #b93829;
+    color: #fff8f0;
+}
+
+.label-with-counter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.msg-char-info {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10px;
+    color: #7a5234;
+}
+
+/* Submit Bar */
+.dispatch-submit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1.5px dashed rgba(92, 56, 28, 0.28);
+}
+
+.submit-hint-text {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    color: #6b4426;
+    max-width: 420px;
+}
+
+.dial-send-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 22px;
+    background: linear-gradient(135deg, #b93829 0%, #8f2317 100%);
+    border: 2px solid #472005;
+    border-radius: 999px;
+    color: #fff9f2;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    box-shadow: 0 6px 18px rgba(185, 56, 41, 0.32), 3px 3px 0 #472005;
+    transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.16s ease;
+}
+
+.dial-send-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    filter: brightness(1.08);
+}
+
+.dial-send-btn:active {
+    transform: translateY(1px);
+}
+
+/* Post-Submit Transmission Ready Drawer */
+.transmission-ready-panel {
+    margin-top: 14px;
+    padding: 12px 14px;
+    background: #eef8f1;
+    border: 2px solid #2b7a4b;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.transmission-ready-panel[hidden] {
+    display: none !important;
+}
+
+.transmission-head {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.trans-badge {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1c5432;
+}
+
+.trans-sub {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    color: #2c5e3f;
+}
+
+.transmission-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.trans-action-btn {
+    padding: 7px 12px;
+    background: #ffffff;
+    border: 1.5px solid #2b7a4b;
+    border-radius: 6px;
+    color: #1c5432;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.trans-action-btn:hover {
+    background: #d7f0df;
+}
+
+.trans-action-btn.primary-trans-btn {
+    background: #2b7a4b;
+    color: #ffffff;
+}
+
+.trans-action-btn.gmail-trans-btn {
+    border-color: #b93829;
+    color: #b93829;
+}
+
+.trans-action-btn.gmail-trans-btn:hover {
+    background: #fde8e8;
+}
+
+/* Recent Dispatches Session Log */
+.sent-dispatches-log {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1.5px dashed rgba(92, 56, 28, 0.28);
+}
+
+.sent-dispatches-log[hidden] {
+    display: none !important;
+}
+
+.sent-log-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10px;
+    font-weight: 700;
+    color: #6b4426;
+}
+
+.clear-log-btn {
+    padding: 2px 7px;
+    background: transparent;
+    border: 1px solid #a67d54;
+    border-radius: 4px;
+    font-family: "Noto Sans Mono", monospace;
+    font-size: 9.5px;
+    color: #6b4426;
+}
+
+.sent-log-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sent-log-item {
+    padding: 7px 10px;
+    background: rgba(255, 252, 246, 0.85);
+    border: 1px solid #cbb092;
+    border-left: 3px solid #2b7a4b;
+    border-radius: 5px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Floating Toast Notification */
+.contact-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    padding: 10px 20px;
+    background: #2b1406;
+    border: 2px solid #f5dfc1;
+    border-radius: 999px;
+    color: #fff8f0;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.contact-toast[hidden] {
+    display: none !important;
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 1120px) {
+    .contact-topbar {
+        flex-wrap: wrap;
+        gap: 6px 10px;
+        padding: 10px var(--subpage-pad-right, 92px) 10px var(--subpage-pad-x, 20px);
+    }
+
+    .contact-topbar-left,
+    .contact-topbar-actions {
+        flex-wrap: wrap;
+    }
+
+    .contact-desk-stage {
+        height: auto;
+        min-height: calc(100vh - var(--contact-topbar-h, 54px));
+        padding: 14px var(--subpage-pad-right, 92px) 28px var(--subpage-pad-x, 20px);
+    }
+
+    .contact-workspace-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .rotary-stage-column {
+        position: relative;
+        top: 0;
+        height: calc(100vh - var(--contact-topbar-h, 84px) - 28px);
+        min-height: 480px;
+        max-width: none;
+        margin: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 760px) {
+    .contact-topbar {
+        padding: 8px var(--subpage-pad-right, 68px) 8px var(--subpage-pad-x, 16px);
+    }
+
+    .contact-desk-stage {
+        width: 100%;
+        padding: 14px var(--subpage-pad-right, 68px) 32px var(--subpage-pad-x, 16px);
+        box-sizing: border-box;
+    }
+
+    .directory-channels-grid,
+    .form-two-col,
+    .form-subject-priority-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .rotary-desk-mat {
+        padding: 10px 12px 12px 12px;
+        overflow: hidden;
+    }
+}

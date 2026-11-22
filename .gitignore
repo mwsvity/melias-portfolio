@@ -1,0 +1,25 @@
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Large original backups (kept local, excluded from web build & git repo)
+assets/image_backup/
+
+# Development logs & documentation (kept private/local)
+DEVELOPMENT_LOG.md
+DEVELOPMENT_LOG*.md
+*.log
+
+# Legacy multi-page archives
+.archive/
+
+# Editor & temporary files
+*.tmp
+*.tmp.png
+.vscode/
+.idea/

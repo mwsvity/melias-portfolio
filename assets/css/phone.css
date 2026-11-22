@@ -1,0 +1,1241 @@
+/* ==========================================================================
+   Melia Winisa | Cognitive Reflex Lab — Brain Trace (Stroop Visual Test)
+   Unified Portfolio Aesthetic (Matching Chess Club & Investigation Subpages)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Subpage Backdrop & Full-Viewport Container
+   -------------------------------------------------------------------------- */
+body.phone-page-body,
+body.view-phone,
+.desk-subview.view-phone {
+    background: radial-gradient(circle at 25% 20%, #fbf5ee 0%, #f1e3d3 65%, #e5d0ba 100%);
+    color: var(--brown-deep, #472005);
+    width: 100vw;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Custom retro scrollbar matching the paper detective theme */
+.desk-subview.view-phone::-webkit-scrollbar {
+    width: 8px;
+}
+
+.desk-subview.view-phone::-webkit-scrollbar-track {
+    background: rgba(71, 32, 5, 0.06);
+}
+
+.desk-subview.view-phone::-webkit-scrollbar-thumb {
+    background: #d4bfa8;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.desk-subview.view-phone::-webkit-scrollbar-thumb:hover {
+    background: #b89a80;
+}
+
+.stroop-page-container {
+    width: 100%;
+    max-width: none;
+    min-height: 100%;
+    height: auto;
+    margin: 0;
+    /* Symmetrical full-screen margins matching Chess page + clearance for docked folder */
+    padding: 16px 116px 20px 28px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   2. Top Subpage Header (Matches .chess-subpage-header)
+   -------------------------------------------------------------------------- */
+.stroop-subpage-header {
+    flex-shrink: 0;
+    height: clamp(38px, 4.8vh, 46px);
+    margin-bottom: clamp(8px, 1.2vh, 14px);
+    padding-bottom: clamp(6px, 1vh, 8px);
+    border-bottom: 2px dashed rgba(71, 32, 5, 0.22);
+}
+
+.stroop-header-title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: right;
+}
+
+.stroop-header-title-group .subpage-badge {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11px;
+    color: #7a4b32;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+
+.stroop-page-heading {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: clamp(20px, 2.1vw, 26px);
+    font-weight: 700;
+    color: var(--brown-deep, #472005);
+    line-height: 1.15;
+    margin: 2px 0 0 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Main Two-Column Workspace Grid
+   -------------------------------------------------------------------------- */
+.stroop-workspace {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(300px, 0.92fr) minmax(380px, 1.08fr);
+    gap: clamp(14px, 1.8vw, 24px);
+    align-items: stretch;
+}
+
+/* --------------------------------------------------------------------------
+   4. Left Column: Dossier Cards (Companion, Tiers & Personal Records)
+   -------------------------------------------------------------------------- */
+.stroop-intel-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(8px, 1.1vh, 12px);
+    min-height: 0;
+}
+
+.stroop-intel-column .dossier-card {
+    background: #fffdf9;
+    border: 2px solid var(--brown-badge, #4a2109);
+    border-radius: 12px;
+    padding: clamp(9px, 1.2vh, 13px) clamp(12px, 1.2vw, 15px);
+    box-shadow: 0 8px 24px rgba(35, 16, 6, 0.12), 4px 4px 0px rgba(74, 33, 9, 0.85);
+    box-sizing: border-box;
+}
+
+/* Card 1: Companion Card (Matches .bot-spotlight-card in Chess) */
+.stroop-intel-column .bot-spotlight-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.stroop-intel-column .bot-avatar-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 9px;
+    border: 1.5px solid var(--brown-badge, #4a2109);
+    background: linear-gradient(145deg, #fde8ec, #f8cbd3);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.stroop-intel-column .bot-spotlight-name {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--brown-deep, #472005);
+}
+
+.stroop-intel-column .bot-turn-pill {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+}
+
+.stroop-intel-column .bot-spotlight-meta {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11.5px;
+    color: #7a4b32;
+    margin-top: 2px;
+}
+
+.stroop-intel-column .bot-speech-bubble {
+    height: auto;
+    min-height: 44px;
+    padding: 8px 12px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--brown-deep, #472005);
+}
+
+/* Card 2: Sleuth Assessment Tiers Card */
+.stroop-tiers-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(6px, 0.9vh, 10px);
+}
+
+.stroop-tiers-card .dossier-section-head,
+.stroop-records-card .dossier-section-head {
+    margin-bottom: 0;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+/* Live Promotion Progress Bar */
+.tier-meter-track {
+    width: 100%;
+    height: clamp(8px, 1.1vh, 10px);
+    background: #ebdcd0;
+    border: 1.5px solid #d4bfa8;
+    border-radius: 999px;
+    padding: 1.5px;
+    box-shadow: inset 0 1px 3px rgba(74, 33, 9, 0.14);
+    overflow: hidden;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.tier-meter-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #d97706 0%, #f59e0b 45%, #fbbf24 80%, #fef08a 100%);
+    border-radius: 999px;
+    box-shadow: 0 0 8px rgba(245, 158, 11, 0.45);
+    transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 4 Sleuth Tier Progression Ladder */
+.tiers-ladder {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(5px, 0.8vh, 8px);
+    flex: 1;
+    min-height: 0;
+}
+
+/* Connecting progression rail */
+.tiers-ladder::before {
+    content: "";
+    position: absolute;
+    top: 16px;
+    bottom: 16px;
+    left: calc(clamp(8px, 1vw, 12px) + clamp(26px, 3.4vh, 32px) * 0.5 - 1px);
+    width: 2px;
+    background: repeating-linear-gradient(
+        to bottom,
+        #cbb094 0,
+        #cbb094 4px,
+        transparent 4px,
+        transparent 8px
+    );
+    z-index: 1;
+}
+
+.tier-card {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: clamp(8px, 1vw, 12px);
+    padding: clamp(4px, 0.7vh, 7px) clamp(8px, 1vw, 12px);
+    background: #faf4ec;
+    border: 1.5px solid #d9bfa5;
+    border-radius: 9px;
+    transition: transform 0.16s ease, border-color 0.16s ease, background-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.tier-card:hover {
+    transform: translateY(-1px);
+}
+
+/* Emblem Frame with Level Chip */
+.tier-emblem-frame {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #fffdf9;
+    border: 1.5px solid #d9bfa5;
+    box-shadow: 1px 1px 0px rgba(74, 33, 9, 0.4);
+    color: var(--brown-deep, #472005);
+    transition: all 0.2s ease;
+}
+
+.tier-emblem-svg {
+    width: 17px;
+    height: 17px;
+}
+
+.tier-num-chip {
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 8.5px;
+    font-weight: 800;
+    line-height: 1;
+    padding: 1.5px 3.5px;
+    border-radius: 999px;
+    background: var(--brown-badge, #4a2109);
+    color: #fff8f0;
+    border: 1.5px solid #fffdf9;
+}
+
+/* Tier Body */
+.tier-dossier-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.tier-headline {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.tier-rank-title {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--brown-deep, #472005);
+    line-height: 1.15;
+    white-space: nowrap;
+}
+
+.tier-spec-tag {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #8c5a3c;
+    letter-spacing: 0.3px;
+}
+
+.tier-threshold-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tier-req-pill {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #5c3824;
+    background: rgba(140, 90, 60, 0.12);
+    padding: 1.5px 6.5px;
+    border-radius: 4px;
+}
+
+.tier-bench-note {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10px;
+    color: #9c7358;
+}
+
+/* Status Pill */
+.tier-badge-status {
+    flex-shrink: 0;
+}
+
+.tier-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9.5px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Tier Card States (Current / Unlocked / Locked) */
+.tier-card.is-current-tier {
+    background: linear-gradient(135deg, #fff7f7 0%, #fdf0f2 100%);
+    border: 2px solid var(--brown-badge, #4a2109);
+    box-shadow: 2px 2px 0px rgba(74, 33, 9, 0.85);
+    transform: translateX(2px);
+}
+
+.tier-card.is-current-tier .tier-emblem-frame {
+    background: #b93829;
+    color: #fff8f0;
+    border-color: #7a271a;
+    box-shadow: 0 0 10px rgba(185, 56, 41, 0.45);
+}
+
+.tier-card.is-current-tier .tier-rank-title {
+    color: #7a271a;
+}
+
+.tier-card.is-current-tier .tier-status-pill {
+    background: var(--brown-badge, #4a2109);
+    color: #fff8f0;
+    box-shadow: 0 0 8px rgba(74, 33, 9, 0.35);
+}
+
+.tier-card.is-current-tier .tier-status-pill::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #f59e0b;
+    box-shadow: 0 0 6px #f59e0b;
+    animation: beaconPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes beaconPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.tier-card.is-unlocked-tier:not(.is-current-tier) {
+    background: #f3fbf7;
+    border: 1.5px solid #059669;
+}
+
+.tier-card.is-unlocked-tier:not(.is-current-tier) .tier-emblem-frame {
+    background: #d1fae5;
+    color: #065f46;
+    border-color: #059669;
+}
+
+.tier-card.is-unlocked-tier:not(.is-current-tier) .tier-status-pill {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+
+.tier-card.is-locked-tier {
+    background: #f8f1e7;
+    border: 1.5px dashed #d9bfa5;
+    opacity: 0.76;
+}
+
+.tier-card.is-locked-tier .tier-emblem-frame {
+    background: #efe4d6;
+    color: #9c7358;
+    border-color: #cbb094;
+}
+
+.tier-card.is-locked-tier .tier-status-pill {
+    background: #ebe0d2;
+    color: #8c5a3c;
+    border: 1px solid #d9bfa5;
+}
+
+/* Individual Tier Emblems Color Themes */
+.emblem-cadet .tier-emblem-svg { color: #8c5a3c; }
+.emblem-field .tier-emblem-svg { color: #2563eb; }
+.emblem-senior .tier-emblem-svg { color: #059669; }
+.emblem-inquisitor .tier-emblem-svg { color: #d97706; }
+
+.is-current-tier .emblem-cadet .tier-emblem-svg,
+.is-current-tier .emblem-field .tier-emblem-svg,
+.is-current-tier .emblem-senior .tier-emblem-svg,
+.is-current-tier .emblem-inquisitor .tier-emblem-svg {
+    color: #fff8f0;
+}
+
+/* Action Controls Row (Matches .chess-controls-grid) */
+.stroop-controls-row {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 7px;
+    padding-top: clamp(6px, 0.8vh, 9px);
+    border-top: 1px dashed rgba(71, 32, 5, 0.18);
+}
+
+.stroop-action-btn {
+    padding: 7px 11px;
+    border-radius: 8px;
+    border: 1.5px solid var(--brown-badge, #4a2109);
+    background: #fffdf9;
+    color: var(--brown-deep, #472005);
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 0 rgba(74, 33, 9, 0.75);
+    transition: transform 0.12s ease, background-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.stroop-action-btn:hover {
+    background: #fdf0f2;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 0 rgba(74, 33, 9, 0.85);
+}
+
+.stroop-action-btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 rgba(74, 33, 9, 0.85);
+}
+
+.stroop-action-btn.primary-btn {
+    background: var(--brown-badge, #4a2109);
+    color: #fff8f0;
+}
+
+.stroop-action-btn.primary-btn:hover {
+    background: #612c0d;
+}
+
+/* Card 3: Personal Best Records Card */
+.stroop-records-card {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(6px, 0.8vh, 9px);
+}
+
+.records-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+
+.record-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(4px, 0.6vh, 7px) 4px;
+    background: #faf4ec;
+    border: 1.5px solid #d9bfa5;
+    border-radius: 7px;
+    text-align: center;
+}
+
+.record-label {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #7a4b32;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.record-val {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--brown-deep, #472005);
+    line-height: 1.1;
+}
+
+/* --------------------------------------------------------------------------
+   5. Right Column: Interactive Reflex Gameplay Stage
+   -------------------------------------------------------------------------- */
+.stroop-arena-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(8px, 1.1vh, 12px);
+    min-height: 0;
+}
+
+/* Top HUD Strip (Matches .chess-player-bar styling) */
+.stroop-hud-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(6px, 0.9vw, 10px);
+    flex-shrink: 0;
+}
+
+.hud-stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(5px, 0.7vh, 8px) clamp(6px, 0.8vw, 10px);
+    background: #fffdf9;
+    border: 2px solid var(--brown-badge, #4a2109);
+    border-radius: 9px;
+    box-shadow: 0 4px 12px rgba(45, 20, 6, 0.1), 3px 3px 0px rgba(74, 33, 9, 0.8);
+    text-align: center;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.hud-stat-label {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10px;
+    font-weight: 700;
+    color: #7a4b32;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.hud-stat-value {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.05;
+    color: var(--brown-deep, #472005);
+}
+
+.hud-timer-box .hud-stat-value {
+    color: var(--stamp-red, #b93829);
+}
+
+.hud-streak-box .hud-stat-value {
+    color: #d97706;
+}
+
+.hud-accuracy-box .hud-stat-value {
+    color: #059669;
+}
+
+/* Dynamic Timer Bonus (+0.5s) & Penalty (-5s) Feedback */
+.hud-timer-box.timer-gain {
+    background: #ecfdf5;
+    border-color: #059669;
+}
+
+.hud-timer-box.timer-gain .hud-stat-value {
+    color: #059669;
+}
+
+.hud-timer-box.timer-loss {
+    background: #fef2f2;
+    border-color: #dc2626;
+    animation: timerLossShake 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.hud-timer-box.is-urgent {
+    background: #fef2f2;
+    border-color: #dc2626;
+    animation: trackUrgentPulse 0.45s infinite alternate ease-in-out;
+}
+
+.hud-timer-box.is-urgent .hud-stat-value {
+    color: #dc2626;
+}
+
+.hud-stat-box.score-loss {
+    background: #fef2f2;
+    border-color: #dc2626;
+    animation: timerLossShake 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.hud-stat-box.score-loss .hud-stat-value {
+    color: #dc2626;
+}
+
+.stroop-tiers-card.is-demoted-shake {
+    animation: tierDemotionDrop 0.45s ease both;
+    border-color: #dc2626;
+}
+
+@keyframes tierDemotionDrop {
+    0% { transform: translateY(0); }
+    20% { transform: translateY(4px); }
+    40% { transform: translateY(-3px); }
+    60% { transform: translateY(2px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes timerLossShake {
+    10%, 90% { transform: translate3d(-2px, 0, 0); }
+    20%, 80% { transform: translate3d(3px, 0, 0); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+    40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Main Reflex Stage Card (Matches .dossier-card / .chess-board-outer) */
+.stroop-board-frame {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(8px, 1.1vh, 12px);
+    padding: clamp(10px, 1.4vh, 16px) clamp(12px, 1.5vw, 18px);
+    background: #fffdf9;
+    border: 2px solid var(--brown-badge, #4a2109);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(35, 16, 6, 0.12), 4px 4px 0px rgba(74, 33, 9, 0.85);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Countdown Progress Bar (Expanded & Urgent Flashing) */
+.stroop-progress-track {
+    width: 100%;
+    height: clamp(14px, 1.8vh, 18px);
+    background: #ebdcd0;
+    border: 2px solid #c9a888;
+    border-radius: 999px;
+    padding: 2px;
+    box-shadow: inset 0 2px 5px rgba(74, 33, 9, 0.16);
+    overflow: hidden;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stroop-progress-track.is-urgent {
+    border-color: #dc2626;
+    animation: trackUrgentPulse 0.45s infinite alternate ease-in-out;
+}
+
+.stroop-progress-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #10b981 0%, #059669 45%, #3b82f6 100%);
+    border-radius: 999px;
+    box-shadow: 0 1px 3px rgba(16, 185, 129, 0.35);
+    transition: width 0.1s linear, background 0.25s ease;
+}
+
+.stroop-progress-fill.is-urgent {
+    background: linear-gradient(90deg, #f59e0b 0%, #ef4444 55%, #b91c1c 100%);
+    animation: timerUrgentFlash 0.45s infinite alternate ease-in-out;
+}
+
+@keyframes timerUrgentFlash {
+    0% {
+        background: linear-gradient(90deg, #f59e0b 0%, #ef4444 55%, #dc2626 100%);
+        box-shadow: 0 0 6px rgba(239, 68, 68, 0.45);
+    }
+    100% {
+        background: linear-gradient(90deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
+        box-shadow: 0 0 16px rgba(220, 38, 38, 0.85);
+    }
+}
+
+@keyframes trackUrgentPulse {
+    0% {
+        border-color: #f87171;
+        box-shadow: inset 0 2px 4px rgba(74, 33, 9, 0.15), 0 0 4px rgba(239, 68, 68, 0.35);
+    }
+    100% {
+        border-color: #dc2626;
+        box-shadow: inset 0 2px 4px rgba(74, 33, 9, 0.15), 0 0 14px rgba(220, 38, 38, 0.75);
+    }
+}
+
+/* Word Stimulus Stage */
+.stroop-word-card {
+    position: relative;
+    flex: 1;
+    min-height: clamp(80px, 12vh, 130px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(8px, 1vh, 12px) clamp(10px, 1.2vw, 16px);
+    background: #faf4ec;
+    border: 1.5px solid #d9bfa5;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.stroop-word-card.is-shaking {
+    animation: timerLossShake 0.36s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    border-color: #dc2626;
+    background: #fff5f5;
+}
+
+.stroop-prompt-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 3.5px 12px;
+    background: #fffdf9;
+    border: 1.5px solid #d9bfa5;
+    border-radius: 999px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--brown-deep, #472005);
+    letter-spacing: 0.5px;
+}
+
+.stroop-prompt-pill.is-inverted {
+    background: #fef2f2;
+    border-color: #dc2626;
+    color: #b91c1c;
+}
+
+.word-display-stage {
+    position: relative;
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stroop-target-word {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: clamp(38px, 4.6vw, 62px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 1;
+    user-select: none;
+    text-shadow: 0 2px 0 rgba(45, 20, 6, 0.08);
+    transition: transform 0.08s ease;
+}
+
+.stroop-pop-feedback {
+    position: absolute;
+    top: 4px;
+    right: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11px;
+    font-weight: 800;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.stroop-pop-feedback.show-good,
+.stroop-pop-feedback.pop-positive.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+
+.stroop-pop-feedback.show-bad,
+.stroop-pop-feedback.pop-negative.is-active {
+    opacity: 1;
+    transform: translateY(0);
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #ef4444;
+}
+
+.rule-hint-pill {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    color: #7a4b32;
+}
+
+/* 4 Tactile Color Choice Buttons (2x2 Grid: Q, W, A, S) */
+.stroop-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(8px, 1vh, 12px);
+    flex-shrink: 0;
+}
+
+.stroop-color-btn {
+    position: relative;
+    height: clamp(54px, 7.5vh, 72px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2px, 0.5vh, 4px);
+    border: 2px solid var(--brown-badge, #4a2109);
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.12s ease;
+}
+
+.stroop-color-btn:hover {
+    filter: brightness(1.04);
+    transform: translateY(-2px);
+}
+
+.stroop-color-btn:active,
+.stroop-color-btn.is-active-press {
+    transform: translateY(2px) !important;
+}
+
+.stroop-color-btn.color-red {
+    background: linear-gradient(180deg, #f87171 0%, #ef4444 65%, #dc2626 100%);
+    box-shadow: 0 4px 0 #7f1d1d;
+    color: #ffffff;
+}
+
+.stroop-color-btn.color-blue {
+    background: linear-gradient(180deg, #60a5fa 0%, #3b82f6 65%, #2563eb 100%);
+    box-shadow: 0 4px 0 #1e3a8a;
+    color: #ffffff;
+}
+
+.stroop-color-btn.color-green {
+    background: linear-gradient(180deg, #34d399 0%, #10b981 65%, #059669 100%);
+    box-shadow: 0 4px 0 #064e3b;
+    color: #ffffff;
+}
+
+.stroop-color-btn.color-gold {
+    background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 65%, #d97706 100%);
+    box-shadow: 0 4px 0 #78350f;
+    color: #ffffff;
+}
+
+.btn-name {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    line-height: 1;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+.btn-kbd {
+    display: inline-block;
+    min-width: 24px;
+    padding: 2px 7px;
+    background: rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.48);
+    border-radius: 4px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Bottom Status Bar (Matches .chess-status-banner) */
+.stroop-status-banner {
+    flex-shrink: 0;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 0 16px;
+    background: #fffdf9;
+    border: 2px solid var(--brown-badge, #4a2109);
+    border-radius: 9px;
+    box-shadow: 0 4px 12px rgba(45, 20, 6, 0.1), 3px 3px 0px rgba(74, 33, 9, 0.8);
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brown-deep, #472005);
+}
+
+/* --------------------------------------------------------------------------
+   6. Game Over Overlay Modal
+   -------------------------------------------------------------------------- */
+.stroop-gameover-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    background: rgba(34, 16, 7, 0.72);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.stroop-gameover-overlay[hidden] {
+    display: none !important;
+}
+
+.gameover-card {
+    width: 100%;
+    max-width: 390px;
+    max-height: 95%;
+    overflow-y: auto;
+    background: #fffdf9;
+    border: 2px solid var(--brown-badge, #4a2109);
+    border-radius: 12px;
+    padding: clamp(14px, 2vh, 20px) clamp(14px, 2vw, 22px);
+    box-shadow: 0 14px 34px rgba(20, 8, 3, 0.45), 4px 4px 0px rgba(74, 33, 9, 0.9);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1.2vh, 12px);
+    box-sizing: border-box;
+}
+
+.gameover-badge {
+    align-self: center;
+    padding: 3px 10px;
+    background: #fdf0f2;
+    border: 1px solid #f1bfc7;
+    border-radius: 999px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--stamp-red, #b93829);
+}
+
+.gameover-title {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--brown-deep, #472005);
+    margin: 0;
+}
+
+.gameover-score-wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: #faf4ec;
+    border: 1.5px solid #d9bfa5;
+    border-radius: 8px;
+}
+
+.gameover-score-num {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--brown-deep, #472005);
+    line-height: 1;
+}
+
+.gameover-score-lbl {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10.5px;
+    color: #7a4b32;
+    margin-top: 3px;
+}
+
+.gameover-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.gov-stat {
+    display: flex;
+    flex-direction: column;
+    padding: 6px;
+    background: #faf4ec;
+    border: 1px solid #d9bfa5;
+    border-radius: 6px;
+}
+
+.gov-label {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 9.5px;
+    color: #7a4b32;
+}
+
+.gov-val {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--brown-deep, #472005);
+}
+
+.gameover-rank-box {
+    padding: 10px 12px;
+    background: #fdf3f4;
+    border: 1.5px solid #f1bfc7;
+    border-radius: 8px;
+}
+
+.rank-badge-kicker {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 10px;
+    font-weight: 700;
+    color: #8c584c;
+}
+
+.rank-badge-name {
+    font-family: var(--font-heading, "Playfair Display", serif);
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--brown-deep, #472005);
+    margin: 2px 0 4px 0;
+}
+
+.rank-badge-desc {
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 12px;
+    color: #5c3824;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.gameover-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.gameover-actions .stroop-action-btn {
+    width: 100%;
+    padding: 10px 16px;
+}
+
+/* --------------------------------------------------------------------------
+   7. Floating Notification Toast
+   -------------------------------------------------------------------------- */
+.phone-toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 120;
+    padding: 10px 18px;
+    background: var(--brown-badge, #4a2109);
+    color: #fff8f0;
+    border: 2px solid #fccacd;
+    border-radius: 999px;
+    font-family: "Noto Sans Mono", monospace;
+    font-variation-settings: "wdth" 75;
+    font-size: 12px;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+}
+
+.phone-toast[hidden] {
+    display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+@media (max-width: 980px) {
+    .stroop-page-container {
+        min-height: 100%;
+        height: auto;
+        padding: 16px 84px 24px 20px;
+    }
+
+    .stroop-workspace {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .stroop-arena-column {
+        order: -1;
+    }
+
+    .stroop-color-btn {
+        height: 62px;
+    }
+
+    .stroop-word-card {
+        min-height: 120px;
+    }
+}
+
+@media (max-width: 600px) {
+    .stroop-page-container {
+        padding: 12px 68px 20px 14px;
+    }
+
+    .stroop-subpage-header {
+        height: auto;
+        min-height: 40px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .stroop-header-title-group {
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .stroop-hud-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .hud-stat-box {
+        padding: 6px 10px;
+    }
+
+    .hud-stat-label {
+        font-size: 10px;
+    }
+
+    .hud-stat-value {
+        font-size: 18px;
+    }
+
+    .stroop-status-banner {
+        height: auto;
+        padding: 8px 12px;
+        flex-direction: column;
+        gap: 4px;
+        text-align: center;
+        font-size: 11.5px;
+    }
+
+    .records-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stroop-page-container {
+        padding: 10px 58px 18px 10px;
+    }
+
+    .stroop-hud-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+
+    .stroop-controls-row {
+        grid-template-columns: 1fr;
+    }
+
+    .tier-headline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .tier-threshold-row {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+}
+
+@media (max-height: 650px) {
+    .stroop-page-container {
+        min-height: 100%;
+        height: auto;
+    }
+}
