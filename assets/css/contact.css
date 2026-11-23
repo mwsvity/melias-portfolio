@@ -1089,8 +1089,32 @@ body.view-contact,
     min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    gap: clamp(8px, 1.2vh, 13px);
+    justify-content: flex-start;
+    gap: clamp(10px, 1.4vh, 16px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 4px 8px 16px 2px;
+    scrollbar-width: thin;
+    scrollbar-color: #8c6236 rgba(71, 32, 5, 0.08);
+    -webkit-overflow-scrolling: touch;
+}
+
+.contact-documents-column::-webkit-scrollbar {
+    width: 6px;
+}
+
+.contact-documents-column::-webkit-scrollbar-track {
+    background: rgba(71, 32, 5, 0.08);
+    border-radius: 999px;
+}
+
+.contact-documents-column::-webkit-scrollbar-thumb {
+    background: #8c6236;
+    border-radius: 999px;
+}
+
+.contact-documents-column::-webkit-scrollbar-thumb:hover {
+    background: #5c381c;
 }
 
 .contact-doc-sheet {
@@ -1108,11 +1132,16 @@ body.view-contact,
         4px 4px 0 rgba(92, 54, 24, 0.5);
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
+}
+
+.directory-sheet {
+    flex-shrink: 0;
 }
 
 .dispatch-sheet {
-    flex: 1;
-    min-height: 0;
+    flex: 1 0 auto;
+    min-height: min-content;
 }
 
 .doc-sheet-topbar {
